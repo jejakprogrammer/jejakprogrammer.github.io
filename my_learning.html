@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Learning" />
+    <meta name="author" content="MR S-149" />
+    <meta name="keyword" content="web, freelance, proggrammer, programming, laravel, IT, berita, tekhnologi, insiden, news, kejadian, jejakprogrammer, Jejak" />
+    <title>MY LEARNING</title>
+    <link href="jp.png" rel="icon" />
+    <link href="jp.png" rel="apple-touch-icon" />
+    <link rel="icon" href="jp.png" type="image/jpeg">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Montserrat:300,400,500,700" rel="stylesheet" />
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f7f9fb;
+        }
+        /* Sidebar styling */
+        
+        .sidebar {
+            background-color: #343a40;
+            padding: 20px;
+            /* Added padding for better spacing */
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            z-index: 1000;
+        }
+        
+        .sidebar a {
+            color: #ffffff;
+            padding: 15px 20px;
+            /* More padding for a better feel */
+            display: flex;
+            /* Use flex to align icon and text */
+            align-items: center;
+            /* Center items vertically */
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* Smooth transition */
+            border-radius: 4px;
+            /* Rounded corners */
+            margin: 5px 0;
+            /* Margin between links */
+            outline: none;
+            /* Remove outline */
+        }
+        
+        .sidebar a:hover {
+            background-color: #495057;
+            text-decoration: none;
+            transform: scale(1.05);
+            /* Slight zoom effect on hover */
+        }
+        /* Icon styling */
+        
+        .sidebar a i {
+            margin-right: 15px;
+            /* Increased margin for spacing */
+            transition: color 0.3s ease, transform 0.3s ease;
+            /* Smooth transition for icon */
+        }
+        
+        .sidebar a:hover i {
+            color: #007bff;
+            /* Change icon color on hover */
+            transform: translateY(-2px);
+            /* Slight lift effect */
+        }
+        /* Add margin to the chevron icon */
+        
+        .sidebar .my-learning-link i:last-child {
+            margin-left: auto;
+            /* Use auto margin to push it to the right */
+            margin-left: 15px;
+            /* Additional space between text and icon */
+        }
+        /* Content Area styling */
+        
+        #content-area {
+            margin-left: 300px;
+            /* Offset for the sidebar */
+            padding: 20px;
+            max-width: calc(100% - 300px);
+            /* Responsive width calculation */
+        }
+        /* Hide sidebar for smaller screens */
+        
+        @media (max-width: 991px) {
+            .sidebar {
+                display: none;
+                /* Hide sidebar on small screens */
+            }
+            #content-area {
+                margin-left: 0;
+                max-width: 100%;
+                /* Allow full width on smaller screens */
+            }
+        }
+        /* Responsive Iframe */
+        
+        #content-area iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+        }
+        /* Offcanvas Sidebar Styles */
+        
+        .offcanvas {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+        
+        .offcanvas a {
+            color: #ffffff;
+            /* Same color as desktop sidebar */
+            padding: 15px 20px;
+            /* More padding for a better feel */
+            display: flex;
+            /* Use flex to align icon and text */
+            align-items: center;
+            /* Center items vertically */
+            font-size: 18px;
+            /* Larger font size for better readability */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* Smooth transition */
+            border-radius: 4px;
+            /* Rounded corners */
+            margin: 5px 0;
+            /* Margin between links */
+            outline: none;
+            /* Remove outline */
+            text-decoration: none;
+            /* Remove underline */
+        }
+        
+        .offcanvas a:hover {
+            background-color: #495057;
+            transform: scale(1.05);
+            /* Slight zoom effect on hover */
+        }
+        
+        .offcanvas-header {
+            border-bottom: 1px solid #495057;
+            /* Divider line */
+        }
+        /* Child links styling */
+        
+        .child-links {
+            display: none;
+            /* Hide child links by default */
+            padding-left: 20px;
+            /* Indent child links */
+            margin: 5px 0;
+            /* Margin for child links */
+            background-color: #495057;
+            /* Slightly darker background for child links */
+            border-radius: 4px;
+            /* Rounded corners for child links */
+        }
+        
+        .child-links a {
+            padding: 10px 20px;
+            /* Padding for child links */
+            display: flex;
+            /* Use flex to align icon and text */
+            align-items: center;
+            /* Center items vertically */
+        }
+        
+        .child-links a:hover {
+            background-color: #6c757d;
+            /* Change background color on hover */
+        }
+        /* Additional spacing for smaller screens */
+        
+        @media (max-width: 576px) {
+            .offcanvas a {
+                padding: 15px 10px;
+                /* Adjust padding for smaller screens */
+            }
+            .offcanvas a i {
+                margin-right: 10px;
+                /* Reduce margin for icon on small screens */
+            }
+        }
+        /* Class for scrollable content */
+        
+        .scrollable-content {
+            width: 220px;
+            /* Adjust width as needed */
+            height: 400px;
+            /* Adjust height as needed */
+            overflow-y: auto;
+            /* Enables vertical scrolling */
+            overflow-x: hidden;
+            /* Hides horizontal scrolling */
+            /* border: 1px solid #ccc; */
+            padding: 5px;
+        }
+        /* Kontainer card */
+        
+        .card {
+            width: 100%;
+            max-width: 100%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            text-align: left;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        /* Efek hover untuk card */
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        /* Gambar header untuk card */
+        
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+        /* Kontainer konten */
+        
+        .card-content {
+            padding: 20px;
+            text-align: justify;
+        }
+        /* Gaya judul */
+        
+        .card-title {
+            font-size: 1.5em;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+        /* Deskripsi atau teks dalam card */
+        
+        .card-text {
+            font-size: 1em;
+            color: #555555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        /* Tombol di bagian bawah card */
+        
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-style: italic;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 12px;
+        }
+        
+        th {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            /* Jarak antara ikon dan teks */
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-none d-lg-block">
+        <!-- Desktop Sidebar -->
+        <div class="sidebar">
+            <h5 class="text-white text-center">MY LEARNING</h5>
+            <a href="#" onclick="loadContent('home')"><i class="fas fa-home"></i> Home</a>
+            <a href="#" onclick="loadContent('add')"><i class="fas fa-plus"></i> Add New</a>
+            <div id="category_links_desktop" class="scrollable-content"></div>
+        </div>
+    </div>
+
+    <!-- Toggle Sidebar Button for Mobile -->
+    <button class="btn btn-light m-3 d-lg-none form-control" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+        <span style="float: left; padding-left: 10px;">JEJAK PROGRAMMER</span><i class="fas fa-bars" style="padding-right: 20px; padding-top: 5px; float: right;"></i>
+    </button>
+
+    <!-- Offcanvas Sidebar for Mobile -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel">MY LEARNING</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <a href="#" onclick="loadContent('home')" data-bs-dismiss="offcanvas"><i class="fas fa-home"></i> Home</a>
+            <a href="#" onclick="loadContent('add')" data-bs-dismiss="offcanvas"><i class="fas fa-home"></i> Add New</a>
+            <!-- Container untuk links dinamis di Offcanvas Sidebar untuk Mobile -->
+            <div id="category_links_mobile"></div>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div id="content-area" class="container mt-4">
+        <h2>Welcome to the Dashboard</h2>
+        <p>This is the default content displayed when the page is first loaded.</p>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script>
+        const apiKey = 'AIzaSyCLW9miHFxA3M9kZ2VuDn419_xEShpD28A';
+        const spreadsheetId = '1pfY3DWhSEdrG-3DgPXEyN131-1IOs2e9OTYMKkcn6wU';
+
+        async function fetchData(range) {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.values;
+        }
+
+        function convertYouTubeUrlToEmbed(url) {
+            const regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})$/;
+            const match = url.match(regex);
+            if (match && match[1]) {
+                return `https://www.youtube.com/embed/${match[1]}`;
+            } else {
+                console.error('Invalid YouTube URL:', url); // Log error to console
+                return ''; // Kembalikan string kosong jika URL tidak valid
+            }
+        }
+
+        function copyToClipboard(event, text) {
+            event.preventDefault(); // Mencegah halaman terreload
+            navigator.clipboard.writeText(text).then(function() {
+                showNotification(); // Menampilkan notifikasi
+            }, function(err) {
+                console.error('Gagal menyalin: ', err); // Notifikasi gagal
+            });
+        }
+
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block'; // Menampilkan notifikasi
+            setTimeout(() => {
+                notification.style.display = 'none'; // Menyembunyikan notifikasi setelah beberapa detik
+            }, 2000); // Menampilkan notifikasi selama 2 detik
+        }
+
+        async function fetchMasterData(categoryName) {
+            console.log("Fetching master data for category:", categoryName);
+            const masterData = await fetchData('master!A:J'); // Ambil data dari kolom A hingga I di sheet "master"
+
+            // Filter data berdasarkan kategori pada kolom E
+            const filteredData = masterData.filter(row => row[4] === categoryName); // Kolom E berisi kategori
+            console.log("Filtered data:", filteredData); // Log untuk melihat hasil filter
+
+            return filteredData.map(row => ({
+                id: row[0],
+                contentText: row[1], // Ambil kolom B yang berisi konten
+                subTitle: row[2],
+                description: row[3], // Ambil deskripsi dari kolom D
+                category: row[4], // Nama kategori
+                linkYT: row[5], // Ambil link YouTube dari kolom F
+                pdf_link: row[6], // Bahasa dari kolom E
+                other_link: row[7], // Bahasa dari kolom E
+                author: row[8], // Bahasa dari kolom E
+                timeStamp: row[9]
+            }));
+        }
+
+        async function updateCategoryText() {
+            console.log("Updating category text...");
+            const categoryData = await fetchData('category!A1:A'); // Ambil semua data dari kolom A sheet "category"
+            const containerDesktop = document.getElementById('category_links_desktop');
+            const containerMobile = document.getElementById('category_links_mobile');
+
+            containerDesktop.innerHTML = "";
+            containerMobile.innerHTML = "";
+
+            for (const [index, row] of categoryData.entries()) {
+                const categoryName = row[0];
+                const masterContent = await fetchMasterData(categoryName);
+
+                console.log(`Content for ${categoryName}:`, masterContent); // Log untuk memastikan konten
+
+                const desktopLink = document.createElement('a');
+                desktopLink.href = "#";
+                desktopLink.className = "my-learning-link";
+                desktopLink.onclick = () => toggleChildLinks(`desktop_category_links_${index}`);
+                desktopLink.innerHTML = `<i class="fas fa-folder"></i> ${categoryName}`;
+
+                const desktopChildLinks = document.createElement('div');
+                desktopChildLinks.id = `desktop_category_links_${index}`;
+                desktopChildLinks.className = "child-links";
+
+                // Loop untuk menambahkan setiap link konten secara terpisah
+                masterContent.forEach(item => {
+                    const contentLink = document.createElement('a');
+                    contentLink.href = "#"; // Set href to # to prevent default behavior
+                    contentLink.innerHTML = `<i class="fas fa-file-alt"></i> [${item.id}] ${item.contentText}`;
+
+                    // Attach click event for each content link
+                    contentLink.onclick = (event) => {
+                        event.preventDefault(); // Prevent the default action (navigation)
+                        loadContent('learning_content', item); // Pass the entire item instead of just specific fields
+                    };
+
+                    desktopChildLinks.appendChild(contentLink);
+                });
+
+                containerDesktop.appendChild(desktopLink);
+                containerDesktop.appendChild(desktopChildLinks);
+
+                const mobileLink = document.createElement('a');
+                mobileLink.href = "#";
+                mobileLink.onclick = () => toggleChildLinks(`mobile_category_links_${index}`);
+                mobileLink.innerHTML = `<i class="fas fa-folder"></i> ${categoryName} <i class="fas fa-chevron-down ms-auto"></i>`;
+
+                const mobileChildLinks = document.createElement('div');
+                mobileChildLinks.id = `mobile_category_links_${index}`;
+                mobileChildLinks.className = "child-links";
+
+                masterContent.forEach(item => {
+                    const contentLink = document.createElement('a');
+                    contentLink.href = "#"; // Set href to # to prevent default behavior
+                    contentLink.innerHTML = `<i class="fas fa-file-alt"></i> [${item.id}] ${item.contentText}`;
+
+                    // Attach click event for each content link
+                    contentLink.onclick = (event) => {
+                        event.preventDefault(); // Prevent the default action (navigation)
+                        loadContent('learning_content', item); // Pass the entire item instead of just specific fields
+                    };
+
+                    mobileChildLinks.appendChild(contentLink);
+                });
+
+                containerMobile.appendChild(mobileLink);
+                containerMobile.appendChild(mobileChildLinks);
+            }
+        }
+
+        // Panggil ulang updateCategoryText secara periodik jika diperlukan
+        document.addEventListener("DOMContentLoaded", updateCategoryText);
+
+        function loadContent(content, item) {
+            const contentArea = document.getElementById('content-area');
+            if (content == "home") {
+                contentArea.innerHTML = `
+                    <h2>Welcome to the Dashboard</h2>
+                    <p>This is the default content displayed when the page is first loaded.</p>
+            `;
+            } else if (content == "add") {
+                contentArea.innerHTML = `
+                <h2>Add New</h2>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd_skA3GHa2gSWx6SHld3tS4ex4igmTu_PMUrp0Y4J10yeIaw/viewform" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>
+            `;
+            } else if (content == "learning_content") {
+                let embedUrl;
+
+                // Coba konversi URL YouTube, jika gagal tampilkan pesan error di console
+                try {
+                    embedUrl = convertYouTubeUrlToEmbed(item.linkYT);
+                } catch (error) {
+                    console.error("Invalid YouTube URL:", error);
+                }
+
+                // Fungsi untuk memeriksa ketersediaan URL PDF
+                async function checkPDF(url) {
+                    try {
+                        const response = await fetch(url, {
+                            method: 'HEAD'
+                        });
+                        return response.ok;
+                    } catch (error) {
+                        console.error("PDF link not accessible:", error);
+                        return false;
+                    }
+                }
+
+                // Memanggil fungsi checkPDF dan mengatur konten
+                checkPDF(item.pdf_link).then(isPDFAvailable => {
+                            contentArea.innerHTML = `
+                        <h2>${item.contentText}</h2>
+                        <hr>
+                        <p>${item.subTitle || "No description available."}</p>
+                        ${embedUrl ? `<iframe src="${embedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>` : `<p>YouTube not provided.</p>`}
+                        <div class="card">
+                            <div class="card-content">
+                                <h2 class="card-title">${item.category || "No category available."}</h2>
+                                <hr>
+                                <p class="card-content"><strong>Description:</strong> ${item.description || "No description available."}</p>
+                            </div>
+                        </div>                        
+
+                        ${isPDFAvailable ? 
+                            `<iframe src="${item.pdf_link}" width="100%" height="600px">Browser Anda tidak mendukung tampilan PDF.</iframe>` :
+                            `<p>PDF not provided.</p>`
+                        }
+                            <div class="card">
+                                <div class="card-content">
+                                    <h2 class="card-title">Original Links</h2>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <th><i class="fab fa-youtube" style="font-size: 24px; color: #FF0000;"></i>YouTube</th>
+                                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.linkYT || "No description available."}</td>
+                                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.linkYT}')"><i class="fas fa-copy"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th><i class="fas fa-file-pdf" style="font-size: 24px; color: #FF0000;"></i>PDF</th>
+                                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.pdf_link || "No description available."}</td>
+                                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.pdf_link}')"><i class="fas fa-copy"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <th><i class="fas fa-globe" style="font-size: 24px; color: #007BFF;"></i>Other</th>
+                                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.other_link || "No description available."}</td>
+                                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.other_link}')"><i class="fas fa-copy"></i></a></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div id="notification" style="display: none; background-color: #4CAF50; color: white; padding: 10px; border-radius: 5px; margin-top: 10px; position: relative;">Link was copy to clipboard!</div>
+
+                                    <div class="card-actions">
+                                        <p>Author: ${item.author || "No description available."}&nbsp;</p>
+                                        <p>Last Update: ${item.timeStamp || "No category available."}</p>
+                                    </div>
+                                </div>
+                            </div>
+                    `;
+                });
+            }
+            else {
+                contentArea.innerHTML = `
+                    <h2>Welcome to the Dashboard</h2>
+                    <p>This is the default content displayed when the page is first loaded.</p>
+            `;
+            }
+
+        }
+
+        function toggleChildLinks(id) {
+            const links = document.getElementById(id);
+            links.style.display = (links.style.display === "none" || links.style.display === "") ? "block" : "none";
+        }
+    </script>
+</body>
+
+</html>
