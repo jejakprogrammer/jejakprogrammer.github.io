@@ -285,13 +285,22 @@
         <div class="sidebar">
             <h5 class="text-white text-center">MY LEARNING</h5>
             <a href="#" onclick="loadContent('home')"><i class="fas fa-home"></i> Home</a>
-            <a href="#" onclick="loadContent('add')"><i class="fas fa-plus"></i> Add New</a>
+            <a class="stting-link" href="#" onclick="toggleChildLinks('setting_links')">
+                <i class="fas fa-gear"></i> Setting
+                <i class="fas fa-chevron-down ms-auto" style="padding-left: 20px;"></i>
+                <!-- Chevron icon for dropdown -->
+            </a>
+            <div id="setting_links" class="child-links">
+                <a href="#" onclick="loadContent('setting', 'docs.google.com/forms/d/e/1FAIpQLSd_skA3GHa2gSWx6SHld3tS4ex4igmTu_PMUrp0Y4J10yeIaw/viewform', 'Add New')"><i class="fas fa-plus"></i> Add New</a>
+                <a href="#" onclick="loadContent('setting', 'docs.google.com/spreadsheets/d/1pfY3DWhSEdrG-3DgPXEyN131-1IOs2e9OTYMKkcn6wU/edit?gid=548550951#gid=548550951', 'Master Data')"><i class="fas fa-file-alt"></i> Master Data</a>
+                <a href="#" onclick="loadContent('setting', 'docs.google.com/forms/d/1exoYDF4w7tnEoIZL-mmVzBqXtSB37LGUEVkptd9r7b0/edit', 'Setting Form')"><i class="fas fa-gear"></i> Setting Form</a>
+            </div>
             <div id="category_links_desktop" class="scrollable-content"></div>
         </div>
     </div>
 
     <!-- Toggle Sidebar Button for Mobile -->
-    <button class="btn btn-light m-3 d-lg-none form-control" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+    <button class="btn btn-light m-3 d-lg-none form-control" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" style="max-width: 90%;">
         <span style="float: left; padding-left: 10px;">JEJAK PROGRAMMER</span><i class="fas fa-bars" style="padding-right: 20px; padding-top: 5px; float: right;"></i>
     </button>
 
@@ -303,7 +312,15 @@
         </div>
         <div class="offcanvas-body">
             <a href="#" onclick="loadContent('home')" data-bs-dismiss="offcanvas"><i class="fas fa-home"></i> Home</a>
-            <a href="#" onclick="loadContent('add')" data-bs-dismiss="offcanvas"><i class="fas fa-home"></i> Add New</a>
+            <a href="#" onclick="toggleChildLinks('offcanvas_setting_links')">
+                <i class="fas fa-gear"></i> Setting
+                <i class="fas fa-chevron-down ms-auto"></i>
+            </a>
+            <div id="offcanvas_setting_links" class="child-links">
+                <a href="#" onclick="loadContent('setting', 'docs.google.com/forms/d/e/1FAIpQLSd_skA3GHa2gSWx6SHld3tS4ex4igmTu_PMUrp0Y4J10yeIaw/viewform', 'Add New')" data-bs-dismiss="offcanvas"><i class="fas fa-plus"></i> Add New</a>
+                <a href="#" onclick="loadContent('setting', 'docs.google.com/spreadsheets/d/1pfY3DWhSEdrG-3DgPXEyN131-1IOs2e9OTYMKkcn6wU/edit?gid=548550951#gid=548550951', 'Master Data')" data-bs-dismiss="offcanvas"><i class="fas fa-file-alt"></i> Master Data</a>
+                <a href="#" onclick="loadContent('setting', 'docs.google.com/forms/d/1exoYDF4w7tnEoIZL-mmVzBqXtSB37LGUEVkptd9r7b0/edit', 'Setting Form')" data-bs-dismiss="offcanvas"><i class="fas fa-gear"></i> Setting Form</a>
+            </div>
             <!-- Container untuk links dinamis di Offcanvas Sidebar untuk Mobile -->
             <div id="category_links_mobile"></div>
         </div>
@@ -454,17 +471,17 @@
         // Panggil ulang updateCategoryText secara periodik jika diperlukan
         document.addEventListener("DOMContentLoaded", updateCategoryText);
 
-        function loadContent(content, item) {
+        function loadContent(content, item, title) {
             const contentArea = document.getElementById('content-area');
             if (content == "home") {
                 contentArea.innerHTML = `
                     <h2>Welcome to the Dashboard</h2>
                     <p>This is the default content displayed when the page is first loaded.</p>
             `;
-            } else if (content == "add") {
+            } else if (content == "setting") {
                 contentArea.innerHTML = `
-                <h2>Add New</h2>
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd_skA3GHa2gSWx6SHld3tS4ex4igmTu_PMUrp0Y4J10yeIaw/viewform" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>
+                <h2>${title}</h2>
+                <iframe src="https://${item}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>
             `;
             } else if (content == "learning_content") {
                 let embedUrl;
