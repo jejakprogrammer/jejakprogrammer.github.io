@@ -359,7 +359,7 @@
 
         async function fetchMasterData(categoryName) {
             console.log("Fetching master data for category:", categoryName);
-            const masterData = await fetchData('master!A:J'); // Ambil data dari kolom A hingga I di sheet "master"
+            const masterData = await fetchData('master!A:K'); // Ambil data dari kolom A hingga I di sheet "master"
 
             // Filter data berdasarkan kategori pada kolom E
             const filteredData = masterData.filter(row => row[4] === categoryName); // Kolom E berisi kategori
@@ -373,9 +373,10 @@
                 category: row[4], // Nama kategori
                 linkYT: row[5], // Ambil link YouTube dari kolom F
                 pdf_link: row[6], // Bahasa dari kolom E
-                other_link: row[7], // Bahasa dari kolom E
-                author: row[8], // Bahasa dari kolom E
-                timeStamp: row[9]
+                web_link: row[7], // Bahasa dari kolom E
+                other_link: row[8], // Bahasa dari kolom E // Bahasa dari kolom E
+                author: row[9], // Bahasa dari kolom E
+                timeStamp: row[10]
             }));
         }
 
@@ -477,6 +478,9 @@
 
                 // Fungsi untuk memeriksa ketersediaan URL PDF
                 async function checkPDF(url) {
+                    if (!url || url === "-") {
+                        return false;
+                    }
                     try {
                         const response = await fetch(url, {
                             method: 'HEAD'
@@ -488,60 +492,85 @@
                     }
                 }
 
-                // Memanggil fungsi checkPDF dan mengatur konten
-                checkPDF(item.pdf_link).then(isPDFAvailable => {
+                // Fungsi untuk memeriksa ketersediaan URL web link
+                async function checkURL(url) {
+                    if (!url || url === "-") {
+                        return false;
+                    }
+                    try {
+                        const response = await fetch(url, {
+                            method: 'HEAD'
+                        });
+                        return response.ok;
+                    } catch (error) {
+                        console.error("Web link not accessible:", error);
+                        return false;
+                    }
+                }
+
+                // Memanggil fungsi checkPDF dan checkURL, kemudian mengatur konten
+                Promise.all([checkPDF(item.pdf_link), checkURL(item.web_link)]).then(([isPDFAvailable, isWebLinkAvailable]) => {
                             contentArea.innerHTML = `
-                        <h2>${item.contentText}</h2>
-                        <hr>
-                        <p>${item.subTitle || "No description available."}</p>
-                        ${embedUrl ? `<iframe src="${embedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>` : `<p>YouTube not provided.</p>`}
-                        <div class="card">
-                            <div class="card-content">
-                                <h2 class="card-title">${item.category || "No category available."}</h2>
-                                <hr>
-                                <p class="card-content"><strong>Description:</strong> ${item.description || "No description available."}</p>
-                            </div>
-                        </div>                        
-
-                        ${isPDFAvailable ? 
-                            `<iframe src="${item.pdf_link}" width="100%" height="600px">Browser Anda tidak mendukung tampilan PDF.</iframe>` :
-                            `<p>PDF not provided.</p>`
-                        }
-                            <div class="card">
-                                <div class="card-content">
-                                    <h2 class="card-title">Original Links</h2>
-                                    
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr>
-                                                <th><i class="fab fa-youtube" style="font-size: 24px; color: #FF0000;"></i>YouTube</th>
-                                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.linkYT || "No description available."}</td>
-                                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.linkYT}')"><i class="fas fa-copy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fas fa-file-pdf" style="font-size: 24px; color: #FF0000;"></i>PDF</th>
-                                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.pdf_link || "No description available."}</td>
-                                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.pdf_link}')"><i class="fas fa-copy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <th><i class="fas fa-globe" style="font-size: 24px; color: #007BFF;"></i>Other</th>
-                                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.other_link || "No description available."}</td>
-                                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.other_link}')"><i class="fas fa-copy"></i></a></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-
-                                    <div id="notification" style="display: none; background-color: #4CAF50; color: white; padding: 10px; border-radius: 5px; margin-top: 10px; position: relative;">Link was copy to clipboard!</div>
-
-                                    <div class="card-actions">
-                                        <p>Author: ${item.author || "No description available."}&nbsp;</p>
-                                        <p>Last Update: ${item.timeStamp || "No category available."}</p>
-                                    </div>
-                                </div>
-                            </div>
-                    `;
-                });
+            <h2>${item.contentText}</h2>
+            <hr>
+            <p>${item.subTitle || "No description available."}</p>
+            ${embedUrl ? `<iframe src="${embedUrl}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe>` : `<p>YouTube not available now.</p>`}
+            ${isPDFAvailable ? 
+                `<iframe src="${item.pdf_link}" width="100%" height="600px">Browser Anda tidak mendukung tampilan PDF.</iframe>` :
+                `<p>PDF not available now.</p>`
             }
+            ${isWebLinkAvailable ? 
+                `<p><iframe src="${item.web_link}" width="100%" height="500px" frameborder="0" allowfullscreen></iframe></p>` : 
+                `<p>Web not available now.</p>`
+            }
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">${item.category || "No category available."}</h2>
+                    <hr>
+                    <p class="card-content"><strong>Description:</strong> ${item.description || "No description available."}</p>
+                </div>
+            </div>                        
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="card-title">Original Links</h2>
+                    
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th><i class="fab fa-youtube" style="font-size: 24px; color: #FF0000;"></i>YouTube</th>
+                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.linkYT || "No description available."}</td>
+                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.linkYT}')"><i class="fas fa-copy"></i></a></td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-file-pdf" style="font-size: 24px; color: #FF0000;"></i>PDF</th>
+                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.pdf_link || "No description available."}</td>
+                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.pdf_link}')"><i class="fas fa-copy"></i></a></td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-globe" style="font-size: 24px; color: #007BFF;"></i>Web</th>
+                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.web_link || "No description available."}</td>
+                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.web_link}')"><i class="fas fa-copy"></i></a></td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-globe" style="font-size: 24px; color: #007BFF;"></i>Other</th>
+                                <td style="max-width: 150px; overflow-x: auto; white-space: nowrap;">${item.other_link || "No description available."}</td>
+                                <td><a href="#" title="copy" class="btn btn-primary" onclick="copyToClipboard(event, '${item.other_link}')"><i class="fas fa-copy"></i></a></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div id="notification" style="display: none; background-color: #4CAF50; color: white; padding: 10px; border-radius: 5px; margin-top: 10px; position: relative;">Link was copied to clipboard!</div>
+
+                    <div class="card-actions">
+                        <p>Author: ${item.author || "No description available."}&nbsp;</p>
+                        <p>Last Update: ${item.timeStamp || "No category available."}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+            }
+
             else {
                 contentArea.innerHTML = `
                     <h2>Welcome to the Dashboard</h2>
