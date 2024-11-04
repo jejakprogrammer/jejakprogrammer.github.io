@@ -347,13 +347,28 @@
         }
 
         function convertYouTubeUrlToEmbed(url) {
-            const regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})$/;
+            // Regex untuk menangkap ID video dan parameter lainnya seperti 'list' dan 'index'
+            const regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/|.+\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})(?:&list=([a-zA-Z0-9_-]+))?(?:&index=(\d+))?/;
             const match = url.match(regex);
+
+            // Jika ID video ditemukan
             if (match && match[1]) {
-                return `https://www.youtube.com/embed/${match[1]}`;
+                let embedUrl = `https://www.youtube.com/embed/${match[1]}`;
+
+                // Menambahkan parameter playlist jika ada
+                if (match[2]) {
+                    embedUrl += `?list=${match[2]}`;
+                }
+
+                // Menambahkan parameter index jika ada dan playlist sudah ditambahkan
+                if (match[3] && match[2]) {
+                    embedUrl += `&index=${match[3]}`;
+                }
+
+                return embedUrl;
             } else {
                 console.error('Invalid YouTube URL:', url); // Log error to console
-                return ''; // Kembalikan string kosong jika URL tidak valid
+                return ''; // Mengembalikan string kosong jika URL tidak valid
             }
         }
 
