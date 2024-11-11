@@ -1,0 +1,340 @@
+body {
+    background-color: #f7f9fb;
+}
+
+
+/* Sidebar styling */
+
+.sidebar {
+    background-color: #343a40;
+    padding: 20px;
+    /* Added padding for better spacing */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+}
+
+.sidebar a {
+    color: #ffffff;
+    padding: 15px 20px;
+    /* More padding for a better feel */
+    display: flex;
+    /* Use flex to align icon and text */
+    align-items: center;
+    /* Center items vertically */
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Smooth transition */
+    border-radius: 4px;
+    /* Rounded corners */
+    margin: 5px 0;
+    /* Margin between links */
+    outline: none;
+    /* Remove outline */
+}
+
+.sidebar a:hover {
+    background-color: #495057;
+    text-decoration: none;
+    transform: scale(1.05);
+    /* Slight zoom effect on hover */
+}
+
+
+/* Icon styling */
+
+.sidebar a i {
+    margin-right: 15px;
+    /* Increased margin for spacing */
+    transition: color 0.3s ease, transform 0.3s ease;
+    /* Smooth transition for icon */
+}
+
+.sidebar a:hover i {
+    color: #007bff;
+    /* Change icon color on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect */
+}
+
+
+/* Add margin to the chevron icon */
+
+.sidebar .my-learning-link i:last-child {
+    margin-left: auto;
+    /* Use auto margin to push it to the right */
+    margin-left: 15px;
+    /* Additional space between text and icon */
+}
+
+
+/* Content Area styling */
+
+#content-area {
+    margin-left: 300px;
+    /* Offset for the sidebar */
+    padding: 20px;
+    max-width: calc(100% - 300px);
+    /* Responsive width calculation */
+}
+
+
+/* Hide sidebar for smaller screens */
+
+@media (max-width: 991px) {
+    .sidebar {
+        display: none;
+        /* Hide sidebar on small screens */
+    }
+    #content-area {
+        margin-left: 0;
+        max-width: 100%;
+        /* Allow full width on smaller screens */
+    }
+}
+
+
+/* Responsive Iframe */
+
+#content-area iframe {
+    width: 100%;
+    height: 80vh;
+    border: none;
+}
+
+
+/* Offcanvas Sidebar Styles */
+
+.offcanvas {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+.offcanvas a {
+    color: #ffffff;
+    /* Same color as desktop sidebar */
+    padding: 15px 20px;
+    /* More padding for a better feel */
+    display: flex;
+    /* Use flex to align icon and text */
+    align-items: center;
+    /* Center items vertically */
+    font-size: 18px;
+    /* Larger font size for better readability */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    /* Smooth transition */
+    border-radius: 4px;
+    /* Rounded corners */
+    margin: 5px 0;
+    /* Margin between links */
+    outline: none;
+    /* Remove outline */
+    text-decoration: none;
+    /* Remove underline */
+}
+
+.offcanvas a:hover {
+    background-color: #495057;
+    transform: scale(1.05);
+    /* Slight zoom effect on hover */
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid #495057;
+    /* Divider line */
+}
+
+
+/* Child links styling */
+
+.child-links {
+    display: none;
+    /* Hide child links by default */
+    padding-left: 20px;
+    /* Indent child links */
+    margin: 5px 0;
+    /* Margin for child links */
+    background-color: #495057;
+    /* Slightly darker background for child links */
+    border-radius: 4px;
+    /* Rounded corners for child links */
+}
+
+.child-links a {
+    padding: 10px 20px;
+    /* Padding for child links */
+    display: flex;
+    /* Use flex to align icon and text */
+    align-items: center;
+    /* Center items vertically */
+}
+
+.child-links a:hover {
+    background-color: #6c757d;
+    /* Change background color on hover */
+}
+
+
+/* Additional spacing for smaller screens */
+
+@media (max-width: 576px) {
+    .offcanvas a {
+        padding: 15px 10px;
+        /* Adjust padding for smaller screens */
+    }
+    .offcanvas a i {
+        margin-right: 10px;
+        /* Reduce margin for icon on small screens */
+    }
+}
+
+
+/* Class for scrollable content */
+
+.scrollable-content {
+    width: 220px;
+    /* Adjust width as needed */
+    height: 400px;
+    /* Adjust height as needed */
+    overflow-y: auto;
+    /* Enables vertical scrolling */
+    overflow-x: hidden;
+    /* Hides horizontal scrolling */
+    /* border: 1px solid #ccc; */
+    padding: 5px;
+}
+
+
+/* Kontainer card */
+
+.card {
+    width: 100%;
+    max-width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+/* Efek hover untuk card */
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+
+/* Gambar header untuk card */
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+
+/* Kontainer konten */
+
+.card-content {
+    padding: 20px;
+    text-align: justify;
+}
+
+
+/* Gaya judul */
+
+.card-title {
+    font-size: 1.5em;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+
+/* Deskripsi atau teks dalam card */
+
+.card-text {
+    font-size: 1em;
+    color: #555555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+
+/* Tombol di bagian bawah card */
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-style: italic;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    /* Agar hanya teks yang diberi garis */
+    text-decoration: underline;
+}
+
+th {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Jarak antara ikon dan teks */
+    border: 0;
+}
+
+#footer {
+    background-color: #2c3e50;
+    /* Warna latar belakang */
+    color: #ecf0f1;
+    /* Warna teks */
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 2px solid #34495e;
+    /* Garis pemisah di bagian atas */
+}
+
+.footer-area a {
+    color: #1abc9c;
+    /* Warna link */
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-area a:hover {
+    color: #16a085;
+    /* Warna link saat hover */
+    text-decoration: underline;
+}
+
+.footer-area .social-icons {
+    margin-top: 10px;
+}
+
+.footer-area .social-icons a {
+    display: inline-block;
+    margin: 0 5px;
+    color: #ecf0f1;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.footer-area .social-icons a:hover {
+    color: #3498db;
+    /* Warna ikon saat hover */
+}
+
+
+/* Responsif untuk layar kecil */
+
+@media (max-width: 600px) {
+    #footer {
+        font-size: 12px;
+        padding: 15px;
+    }
+}
